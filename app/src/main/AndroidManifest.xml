@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.lijeffreytli.champs" >
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_icon"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="activities.MainActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="activities.SplashActivity"
+            android:label="@string/title_activity_splash" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="CLOUDINARY_URL"
+            android:value="cloudinary://523795429227931:0BQVFAL9MUNEd3eoPpnHDSXUKQ4@champs" />
+
+        <activity
+            android:name="activities.ChampionActivity"
+            android:label="@string/title_activity_champion"
+            android:parentActivityName="activities.MainActivity">
+        </activity>
+    </application>
+
+</manifest>
