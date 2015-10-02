@@ -5,5 +5,92 @@
     android:background="@drawable/ic_splash4"
     tools:context="activities.ChampionActivity">
 
+    <TextView
+        android:id="@+id/detail_champ_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:text="Aatrox"/>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/detail_champ_name">
+
+        <RelativeLayout
+            android:id="@+id/rl_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <HorizontalScrollView
+                android:id="@+id/horizontalScrollView"
+                android:layout_width="225dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_centerHorizontal="true">
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutVideos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+                    <ImageView
+                        android:id="@+id/champ_skin1"
+                        android:layout_width="225dp"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_skin_temp"/>
+                    <ImageView
+                        android:id="@+id/champ_skin2"
+                        android:layout_width="225dp"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_skin_temp2"/>
+                    <ImageView
+                        android:id="@+id/champ_skin3"
+                        android:layout_width="225dp"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_skin_temp3"/>
+                    <ImageView
+                        android:id="@+id/champ_skin4"
+                        android:layout_width="225dp"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_skin_temp4"/>
+
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <View
+                android:id="@+id/detail_divider"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/horizontalScrollView"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:id="@+id/champ_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="I AM THE BEST I AM THE BEST I AM THE BEST I AM THE BEST I AM THE BEST I AM THE BEST I AM THE BEST I AM THE BEST I AM THE BEST I AM THE BEST I AM THE BEST I AM THE BEST I AM I AM THE BEST I AM THE BEST I AM THE BEST I AM THE BEST I AM THE BEST I AM THE BEST I AM I AM THE BEST I AM THE BEST I AM THE BEST I AM THE BEST I AM THE BEST I AM THE BEST I AM I AM THE BEST I AM THE BEST I AM THE BEST I AM THE BEST I AM THE BEST I AM THE BEST I AM THE BEST "
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/detail_divider"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+        </RelativeLayout>
+
+
+    </ScrollView>
 </RelativeLayout>
