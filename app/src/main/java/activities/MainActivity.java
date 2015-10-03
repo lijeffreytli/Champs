@@ -26,7 +26,7 @@ import objects.Champ;
 import com.cloudinary.Cloudinary;
 
 public class MainActivity extends ActionBarActivity {
-    public final static String CHAMP_NAME_MESSAGE = "CHAMP_NAME_MESSAGE";
+    public final static String CHAMP_OBJECT = "CHAMP_OBJECT";
 
     private Context context;
     private ListView championsListView;
@@ -38,6 +38,7 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         setChampsNameList();
 
+        // Integrate with Cloudinary API and set up requirements
         Map config = new HashMap();
         config.put("cloud_name", "champs");
         config.put("api_key", "523795429227931");
@@ -47,9 +48,10 @@ public class MainActivity extends ActionBarActivity {
         context = this;
         championsListView = (ListView)findViewById(R.id.champs_list);
 
-        List<Champ> champsList = new ArrayList<Champ>();
+        final List<Champ> champsList = new ArrayList<Champ>();
         for (String championName : champsNameList){
             Champ champ = new Champ(championName);
+
             champsList.add(champ);
         }
 
@@ -61,12 +63,13 @@ public class MainActivity extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
                 Intent intent = new Intent(MainActivity.this, ChampionActivity.class);
-                String champName = champsNameList.get(position);
-                intent.putExtra(CHAMP_NAME_MESSAGE, champName);
+
+                Champ champ = champsList.get(position);
+
+                intent.putExtra(CHAMP_OBJECT, champ);
                 startActivity(intent);
             }
         });
-
     }
 
     @Override

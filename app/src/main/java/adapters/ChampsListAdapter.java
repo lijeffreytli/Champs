@@ -58,7 +58,7 @@ public class ChampsListAdapter extends BaseAdapter {
         textViewName.setText(champName);
         textViewName.setTextColor(Color.parseColor("#F5FBE1"));
 
-        Picasso.with(context).load("https://res.cloudinary.com/champs/image/upload/" + champName + ".png").into(champIconImageView);
+        Picasso.with(context).load("http://res.cloudinary.com/champs/image/upload/" + champName + ".png").into(champIconImageView);
 
         return rowView;
     };
