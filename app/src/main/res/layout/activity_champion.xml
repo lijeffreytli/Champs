@@ -5,6 +5,13 @@
     android:background="@drawable/ic_empty_background"
     tools:context="activities.ChampionActivity">
 
+    <ProgressBar android:id="@+id/loading_spinner"
+        style="?android:progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"/>
+
     <TextView
         android:id="@+id/detail_champ_name"
         android:layout_width="wrap_content"
@@ -170,22 +177,12 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
 
-            <TextView
-                android:id="@+id/champ_detail"
+            <ListView
+                android:id="@+id/spells_list"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:layout_marginTop="7dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginEnd="5dp"
+                android:layout_height="115dp"
                 android:layout_below="@+id/detail_divider"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
-
+                android:layout_alignParentBottom="true" />
         </RelativeLayout>
-
-
     </ScrollView>
 </RelativeLayout>

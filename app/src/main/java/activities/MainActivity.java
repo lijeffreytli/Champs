@@ -100,6 +100,7 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    // Hard code the names of the champions because the API has spelling mistakes
     public void setChampsNameList(){
         champsNameList = new ArrayList<String>();
 
@@ -232,6 +233,7 @@ public class MainActivity extends ActionBarActivity {
         champsNameList.add("Zyra");
     }
 
+    // Hard code the titles of the champions because the API has spelling mistakes
     public void setChampsTitleList() {
         champsTitleList = new ArrayList<String>();
 

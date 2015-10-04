@@ -1,5 +1,7 @@
 package activities;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -10,7 +12,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.firebase.client.DataSnapshot;
@@ -27,6 +32,8 @@ public class ChampionActivity extends ActionBarActivity {
     private Firebase championBase;
     private Context context;
     private Champ champ;
+    private TableLayout champSkillsTable;
+    private View mLoadingView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +41,12 @@ public class ChampionActivity extends ActionBarActivity {
         setContentView(R.layout.activity_champion);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        Firebase.setAndroidContext(this);
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
+        mLoadingView = findViewById(R.id.loading_spinner);
+
+        Firebase.setAndroidContext(this);
         context = getApplicationContext();
 
         Intent intent = getIntent();
@@ -99,8 +107,6 @@ public class ChampionActivity extends ActionBarActivity {
     public void setChampionSkins(int numberOfSkins)  {
         int displayedSkins = 0;
 
-        Log.e("POOP", String.valueOf(numberOfSkins));
-
         for (int i = 0; i <= 16; i++){
             ImageView imageViewSkin = getImageViewSkin(i);
 
@@ -110,6 +116,8 @@ public class ChampionActivity extends ActionBarActivity {
 
                 Picasso.with(context).load(urlToImage).error(R.drawable.image_not_available).fit().centerCrop().into(imageViewSkin);
                 imageViewSkin.setVisibility(View.VISIBLE);
+
+                fadeAnimation();
 
                 displayedSkins++;
             } else {
@@ -175,5 +183,22 @@ public class ChampionActivity extends ActionBarActivity {
                 break;
         }
         return imageViewSkin;
+    }
+
+    private void fadeAnimation(){
+        /* Animate the loading view to 0% opacity. After the animation ends,
+           set its visibility to GONE as an optimization step (it won't
+           participate in layout passes, etc.) */
+        mLoadingView.animate()
+                .alpha(0f)
+                .scaleX(0f)
+                .scaleY(0f)
+                .setDuration(250)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        mLoadingView.setVisibility(View.GONE);
+                    }
+                });
     }
 }
