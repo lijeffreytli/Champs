@@ -2,12 +2,17 @@ package adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 import com.lijeffreytli.champs.R;
 import com.squareup.picasso.Picasso;
 
@@ -23,10 +28,14 @@ public class ChampsListAdapter extends BaseAdapter {
     private Context context;
     private List<Champ> champsList;
     private List<String> champsNameList;
+    private List<String> champsTitleList;
+    private Firebase championBase;
+    public String champTitle;
 
-    public ChampsListAdapter(Context context, List<Champ> champsList, List<String> champsNameList) {
+    public ChampsListAdapter(Context context, List<Champ> champsList, List<String> champsNameList, List<String> champsTitleList) {
         this.champsList = champsList;
         this.champsNameList = champsNameList;
+        this.champsTitleList = champsTitleList;
         this.context=context;
     }
 
@@ -46,6 +55,8 @@ public class ChampsListAdapter extends BaseAdapter {
     }
 
     public View getView(int position,View view,ViewGroup parent) {
+        Firebase.setAndroidContext(context);
+
         View rowView = view;
         if(rowView == null)
             rowView = ((Activity)context).getLayoutInflater().inflate(R.layout.champ_list_item, null);
@@ -53,10 +64,15 @@ public class ChampsListAdapter extends BaseAdapter {
         ImageView champIconImageView = (ImageView)rowView.findViewById(R.id.champ_icon);
 
         String champName = champsNameList.get(position);
+        String champTitle = champsTitleList.get(position);
 
         TextView textViewName = (TextView)rowView.findViewById(R.id.champ_name);
         textViewName.setText(champName);
         textViewName.setTextColor(Color.parseColor("#F5FBE1"));
+
+        TextView textViewTitle = (TextView)rowView.findViewById(R.id.champ_title);
+        textViewTitle.setText(champTitle);
+        textViewTitle.setTextColor(Color.parseColor("#F5FBE1"));
 
         Picasso.with(context).load("http://res.cloudinary.com/champs/image/upload/" + champName + ".png").into(champIconImageView);
 

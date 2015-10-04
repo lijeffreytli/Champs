@@ -94,6 +94,8 @@ public class ChampionActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    // Description: Given the Cloudinary url, Picasso will update the imageviews with the
+    //              champion skins
     public void setChampionSkins(int numberOfSkins)  {
         int displayedSkins = 0;
 
