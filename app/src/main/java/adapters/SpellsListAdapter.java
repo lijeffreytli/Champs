@@ -2,6 +2,7 @@ package adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -27,12 +28,17 @@ public class SpellsListAdapter extends BaseAdapter {
     private Context context;
     private List<String> champsSpellDescriptionList;
     private List<String> champsSpellList;
+    private List<String> spellImageName;
+    private List<String> champSpellsImageNameList;
+    private String champName;
     private String passiveSpellImageName;
 
-    public SpellsListAdapter(Context context, List<String> champsSpellList, List<String> champsSpellDescriptionList, String passiveSpellImageName) {
+    public SpellsListAdapter(Context context, List<String> champsSpellList, List<String> champsSpellDescriptionList, List<String> champSpellImageNameList, String passiveSpellImageName, String champName) {
         this.champsSpellList = champsSpellList;
         this.champsSpellDescriptionList = champsSpellDescriptionList;
         this.passiveSpellImageName = passiveSpellImageName;
+        this.champSpellsImageNameList = champSpellImageNameList;
+        this.champName = champName;
         this.context=context;
     }
 
@@ -56,8 +62,6 @@ public class SpellsListAdapter extends BaseAdapter {
         if(rowView == null)
             rowView = ((Activity)context).getLayoutInflater().inflate(R.layout.spell_list_item, null);
 
-//        ImageView spellIconImageView = (ImageView)rowView.findViewById(R.id.champ_image_spell);
-
         String spellTitle = champsSpellList.get(position);
         String spellDescription = champsSpellDescriptionList.get(position);
 
@@ -69,7 +73,16 @@ public class SpellsListAdapter extends BaseAdapter {
         textViewTitle.setText(spellDescription);
         textViewTitle.setTextColor(Color.parseColor("#F5FBE1"));
 
-        //Picasso.with(context).load("http://res.cloudinary.com/champs/image/upload/" + champName + ".png").into(champIconImageView);
+
+        ImageView spellIconImageView = (ImageView)rowView.findViewById(R.id.champ_image_spell);
+
+
+        if (position == 0){
+            Picasso.with(context).load("http://res.cloudinary.com/champs/image/upload/" + passiveSpellImageName).into(spellIconImageView);
+        } else {
+            String spellImageName = champSpellsImageNameList.get(position-1);
+            Picasso.with(context).load("http://res.cloudinary.com/champs/image/upload/" + spellImageName).into(spellIconImageView);
+        }
 
         return rowView;
     };

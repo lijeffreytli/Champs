@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/champ_image_spell"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:src="@drawable/ic_passive"
         android:layout_below="@+id/champ_spell_title"
         android:layout_alignParentLeft="true"
@@ -28,7 +28,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_gravity="fill"
-            android:padding="2dp"
             android:text="When using an ability that costs Health, Aatrox stores the self-inflicted damage into the Blood Well. Upon taking fatal damage, Aatrox extracts the blood from the well and recovers it as Health over a brief duration. Additionally, Aatrox gains 1% Attack Speed for every 2% blood that is in the well."
          />
     </ScrollView>

@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
-import android.os.Handler;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -14,11 +13,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.firebase.client.DataSnapshot;
@@ -31,7 +27,6 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-import adapters.ChampsListAdapter;
 import adapters.SpellsListAdapter;
 import objects.Champ;
 
@@ -41,7 +36,8 @@ public class ChampionActivity extends ActionBarActivity {
     private Context context;
     private Champ champ;
     private ListView spellsListView;
-    private List<String> champSpellsList;
+    private List<String> champSpellsImageNameList;
+    private List<String> champSpellsTitleList;
     private List<String> champSpellsDescList;
     private String passiveSpellImageName;
     private View mLoadingView;
@@ -55,8 +51,9 @@ public class ChampionActivity extends ActionBarActivity {
 
         mLoadingView = findViewById(R.id.loading_spinner);
 
-        champSpellsList = new ArrayList<String>();
+        champSpellsTitleList = new ArrayList<String>();
         champSpellsDescList = new ArrayList<String>();
+        champSpellsImageNameList = new ArrayList<String>();
 
         Firebase.setAndroidContext(this);
         context = getApplicationContext();
@@ -228,8 +225,15 @@ public class ChampionActivity extends ActionBarActivity {
                             Log.e("getChampSpells", data.getValue().toString());
                         }
                         if (data.getKey().equals("name")) {
-                            champSpellsList.add(data.getValue().toString());
+                            champSpellsTitleList.add(data.getValue().toString());
                             Log.e("getChampSpells", data.getValue().toString());
+                        }
+                        if (data.getKey().equals("image")) {
+                            for (DataSnapshot imageData : data.getChildren()) {
+                                if (imageData.getKey().equals("full")){
+                                    champSpellsImageNameList.add(imageData.getValue().toString());
+                                }
+                            }
                         }
                     }
                 }
@@ -252,7 +256,7 @@ public class ChampionActivity extends ActionBarActivity {
                         champSpellsDescList.add(child.getValue().toString());
                     }
                     if (child.getKey().equals("name")){
-                        champSpellsList.add(child.getValue().toString());
+                        champSpellsTitleList.add(child.getValue().toString());
                     }
 
                     if (child.getKey().equals("image")){
@@ -290,9 +294,8 @@ public class ChampionActivity extends ActionBarActivity {
         @Override
         protected void onPostExecute(String result) {
             spellsListView = (ListView)findViewById(R.id.spells_list);
-            SpellsListAdapter champsListAdapter = new SpellsListAdapter(ChampionActivity.this, champSpellsList, champSpellsDescList, passiveSpellImageName);
+            SpellsListAdapter champsListAdapter = new SpellsListAdapter(ChampionActivity.this, champSpellsTitleList, champSpellsDescList, champSpellsImageNameList, passiveSpellImageName, champ.getName());
             spellsListView.setAdapter(champsListAdapter);
-            Log.e("POOP", "I'M DONE PROCESSING SHIT");
             // might want to change "executed" for the returned string passed
             // into onPostExecute() but that is upto you
         }
