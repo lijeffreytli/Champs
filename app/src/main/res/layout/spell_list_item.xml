@@ -4,9 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:background="@drawable/ic_background"
-    android:padding="5dp"
-    android:weightSum="1">
+    android:padding="5dp">
 
     <ImageView
         android:id="@+id/champ_image_spell"
@@ -17,22 +15,23 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <TextView
-        android:id="@+id/champ_spell_description"
+    <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:scrollbars = "vertical"
-        android:layout_marginLeft="5dp"
-        android:layout_gravity="fill"
-        android:padding="2dp"
-        android:text="When using an ability that costs Health, Aatrox stores the self-inflicted damage into the Blood Well. Upon taking fatal damage, Aatrox extracts the blood from the well and recovers it as Health over a brief duration. Additionally, Aatrox gains 1% Attack Speed for every 2% blood that is in the well."
-        android:maxLines="3"
-        android:layout_alignRight="@+id/champ_spell_title"
-        android:layout_alignEnd="@+id/champ_spell_title"
         android:layout_toRightOf="@+id/champ_image_spell"
         android:layout_toEndOf="@+id/champ_image_spell"
-        android:layout_alignBottom="@+id/champ_image_spell"
-        android:layout_below="@+id/champ_spell_title" />
+        android:layout_below="@+id/champ_spell_title">
+
+        <TextView
+            android:id="@+id/champ_spell_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_gravity="fill"
+            android:padding="2dp"
+            android:text="When using an ability that costs Health, Aatrox stores the self-inflicted damage into the Blood Well. Upon taking fatal damage, Aatrox extracts the blood from the well and recovers it as Health over a brief duration. Additionally, Aatrox gains 1% Attack Speed for every 2% blood that is in the well."
+         />
+    </ScrollView>
 
     <TextView
         android:id="@+id/champ_spell_title"
