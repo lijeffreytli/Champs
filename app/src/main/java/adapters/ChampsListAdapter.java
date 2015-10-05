@@ -2,17 +2,13 @@ package adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
 import com.lijeffreytli.champs.R;
 import com.squareup.picasso.Picasso;
 
@@ -70,7 +66,7 @@ public class ChampsListAdapter extends BaseAdapter {
         textViewName.setText(champName);
         textViewName.setTextColor(Color.parseColor("#F5FBE1"));
 
-        TextView textViewTitle = (TextView)rowView.findViewById(R.id.champ_title);
+        TextView textViewTitle = (TextView)rowView.findViewById(R.id.champ_spell_title);
         textViewTitle.setText(champTitle);
         textViewTitle.setTextColor(Color.parseColor("#F5FBE1"));
 

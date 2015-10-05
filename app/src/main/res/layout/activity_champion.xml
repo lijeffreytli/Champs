@@ -180,7 +180,7 @@
             <ListView
                 android:id="@+id/spells_list"
                 android:layout_width="match_parent"
-                android:layout_height="115dp"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/detail_divider"
                 android:layout_alignParentBottom="true" />
         </RelativeLayout>
