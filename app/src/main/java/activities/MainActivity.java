@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.support.v7.internal.widget.AdapterViewCompat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,7 +29,6 @@ public class MainActivity extends ActionBarActivity {
     public final static String CHAMP_OBJECT = "CHAMP_OBJECT";
 
     private Context context;
-    private ListView championsListView;
     private List<String> champsNameList;
     private List<String> champsTitleList;
 
@@ -38,27 +36,26 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
         setChampsNameList();
         setChampsTitleList();
 
-        // Integrate with Cloudinary API and set up requirements
-        Map config = new HashMap();
-        config.put("cloud_name", "champs");
-        config.put("api_key", "523795429227931");
-        config.put("api_secret", "0BQVFAL9MUNEd3eoPpnHDSXUKQ4");
-        Cloudinary cloudinary = new Cloudinary(config);
+        // Integrate with Cloudinary API and set up requirements. Currently unused.
+        // Uncomment for pushing data to cloudinary.
+//        Map config = new HashMap();
+//        config.put("cloud_name", "champs");
+//        config.put("api_key", "523795429227931");
+//        config.put("api_secret", "0BQVFAL9MUNEd3eoPpnHDSXUKQ4");
+//        Cloudinary cloudinary = new Cloudinary(config);
 
         context = this;
-        championsListView = (ListView)findViewById(R.id.champs_list);
+        ListView championsListView = (ListView)findViewById(R.id.champs_list);
 
         final List<Champ> champsList = new ArrayList<Champ>();
         for (String championName : champsNameList){
             Champ champ = new Champ(championName);
-
             champsList.add(champ);
         }
 
@@ -69,7 +66,7 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
-                Intent intent = new Intent(MainActivity.this, ChampionActivity.class);
+                Intent intent = new Intent(MainActivity.this, ChampActivity.class);
 
                 Champ champ = champsList.get(position);
 
@@ -100,7 +97,12 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    // Hard code the names of the champions because the API has spelling mistakes
+    /**
+     * Desc: Set the name of the champion.
+     *
+     * Note: These are currently hard coded because I realized that the API has spelling mistakes.
+     * Not sure what's worse... hard coding or having spelling mistakes, lol.
+     * */
     public void setChampsNameList(){
         champsNameList = new ArrayList<String>();
 
@@ -233,7 +235,12 @@ public class MainActivity extends ActionBarActivity {
         champsNameList.add("Zyra");
     }
 
-    // Hard code the titles of the champions because the API has spelling mistakes
+    /**
+     * Desc: Set the title of the champion.
+     *
+     * Note: These are currently hard coded because I realized that the API has spelling mistakes.
+     * Not sure what's worse... hard coding or having spelling mistakes, lol.
+     * */
     public void setChampsTitleList() {
         champsTitleList = new ArrayList<String>();
 

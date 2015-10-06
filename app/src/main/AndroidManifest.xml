@@ -30,7 +30,7 @@
             android:value="cloudinary://523795429227931:0BQVFAL9MUNEd3eoPpnHDSXUKQ4@champs" />
 
         <activity
-            android:name="activities.ChampionActivity"
+            android:name="activities.ChampActivity"
             android:label="@string/title_activity_champion"
             android:screenOrientation="portrait"
             android:parentActivityName="activities.MainActivity">

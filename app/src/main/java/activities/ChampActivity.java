@@ -30,12 +30,9 @@ import java.util.List;
 import adapters.SpellsListAdapter;
 import objects.Champ;
 
-public class ChampionActivity extends ActionBarActivity {
-
-    private Firebase championBase;
+public class ChampActivity extends ActionBarActivity {
     private Context context;
     private Champ champ;
-    private ListView spellsListView;
     private List<String> champSpellsImageNameList;
     private List<String> champSpellsTitleList;
     private List<String> champSpellsDescList;
@@ -58,36 +55,18 @@ public class ChampionActivity extends ActionBarActivity {
         Firebase.setAndroidContext(this);
         context = getApplicationContext();
 
+        // Get the intent containing the champ's name passed from the MainActivity
         Intent intent = getIntent();
         champ = (Champ) intent.getSerializableExtra(MainActivity.CHAMP_OBJECT);
         setTitle(champ.getName());
-
-        championBase = new Firebase("https://champions.firebaseio.com/data/" + champ.getName());
-        // Get the number of skins for each champion
-        championBase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                for (DataSnapshot child: snapshot.getChildren()) {
-                    if (child.getKey().equals("numberofskins")){
-                        champ.setChampionNumberOfSkins(Integer.parseInt(child.getValue().toString()));
-                        setChampionSkins(champ.getChampionNumberOfSkins());
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-                System.out.println("The read failed: " + firebaseError.getMessage());
-            }
-        });
-
-        LongOperation operation = new LongOperation();
-        operation.execute("");
 
         TextView textViewName = (TextView)findViewById(R.id.detail_champ_name);
         textViewName.setText(champ.getName());
         textViewName.setTextColor(Color.parseColor("#F5FBE1"));
 
+        // Query data from Firebase and set the adapters
+        QueryData operation = new QueryData();
+        operation.execute("");
     }
 
     @Override
@@ -112,8 +91,10 @@ public class ChampionActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    // Description: Given the Cloudinary url, Picasso will update the imageviews with the
-    //              champion skins
+    /**
+     * Desc: Make requests from Cloudinary url. Use Picasso to update and load the
+     * champion skins into the associated image views.
+     * */
     public void setChampionSkins(int numberOfSkins)  {
         int displayedSkins = 0;
 
@@ -127,8 +108,6 @@ public class ChampionActivity extends ActionBarActivity {
                 Picasso.with(context).load(urlToImage).error(R.drawable.image_not_available).fit().centerCrop().into(imageViewSkin);
                 imageViewSkin.setVisibility(View.VISIBLE);
 
-                fadeAnimation();
-
                 displayedSkins++;
             } else {
                 imageViewSkin.setVisibility(View.GONE);
@@ -136,6 +115,13 @@ public class ChampionActivity extends ActionBarActivity {
         }
     }
 
+    /**
+     * Todo: This is currently hard coded in to retrieve the current image view.
+     * In the future, we'll want to remove this and use a ViewPage instead.
+     *
+     * The value of 16 image views is used because we know that we'll never have
+     * to surpass 16 possible images
+     * */
     public ImageView getImageViewSkin(int index){
         ImageView imageViewSkin = null;
 
@@ -212,6 +198,10 @@ public class ChampionActivity extends ActionBarActivity {
                 });
     }
 
+    /**
+     * Desc: Make a query to the firebase and retrieve all of the champ spells associated
+     * with the current champ.
+     * */
     private void getChampSpells(){
         Firebase champSpellBase = new Firebase("https://champions.firebaseio.com/data/" + champ.getName() + "/spells");
 
@@ -245,6 +235,11 @@ public class ChampionActivity extends ActionBarActivity {
         });
     }
 
+    /**
+     * Desc: Make a query to the firebase and retrieve the passive champ spell associated
+     * with the current champ. Requires separate query because it's a different node in the
+     * data base
+     * */
     private void getChampPassiveSpell(){
         Firebase passiveSpellBase = new Firebase("https://champions.firebaseio.com/data/" + champ.getName() + "/passive");
 
@@ -275,29 +270,56 @@ public class ChampionActivity extends ActionBarActivity {
         });
     }
 
-    private class LongOperation extends AsyncTask<String, Void, String> {
+    /**
+     * Desc: Make a query to the firebase and retrieve the number of skins associated
+     * with the current champ.
+     * */
+    private void getChampNumberSkins(){
+        Firebase championBase = new Firebase("https://champions.firebaseio.com/data/" + champ.getName());
+        // Get the number of skins for each champion
+        championBase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                for (DataSnapshot child: snapshot.getChildren()) {
+                    if (child.getKey().equals("numberofskins")){
+                        champ.setChampionNumberOfSkins(Integer.parseInt(child.getValue().toString()));
+                        setChampionSkins(champ.getChampionNumberOfSkins());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+                System.out.println("The read failed: " + firebaseError.getMessage());
+            }
+        });
+    }
+
+    private class QueryData extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... params) {
+            getChampNumberSkins();
             getChampPassiveSpell();
             getChampSpells();
 
+            // Make sure that we've obtained the data set we want/need before
+            // exiting.
             while(true){
                 if (champSpellsDescList.size() > 4){
                     break;
                 }
             }
-
             return "Executed";
         }
 
         @Override
         protected void onPostExecute(String result) {
-            spellsListView = (ListView)findViewById(R.id.spells_list);
-            SpellsListAdapter champsListAdapter = new SpellsListAdapter(ChampionActivity.this, champSpellsTitleList, champSpellsDescList, champSpellsImageNameList, passiveSpellImageName, champ.getName());
+            ListView spellsListView = (ListView)findViewById(R.id.spells_list);
+            SpellsListAdapter champsListAdapter = new SpellsListAdapter(ChampActivity.this, champSpellsTitleList, champSpellsDescList, champSpellsImageNameList, passiveSpellImageName);
             spellsListView.setAdapter(champsListAdapter);
-            // might want to change "executed" for the returned string passed
-            // into onPostExecute() but that is upto you
+
+            fadeAnimation();
         }
 
         @Override

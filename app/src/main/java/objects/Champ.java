@@ -13,7 +13,6 @@ public class Champ implements Serializable{
     private int championDifficulty;
     private int championMagic;
     private int championNumberOfSkins;
-
     private int championMovementSpeed;
     private double championMagicResist;
     private double championArmor;

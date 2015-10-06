@@ -25,8 +25,6 @@ public class ChampsListAdapter extends BaseAdapter {
     private List<Champ> champsList;
     private List<String> champsNameList;
     private List<String> champsTitleList;
-    private Firebase championBase;
-    public String champTitle;
 
     public ChampsListAdapter(Context context, List<Champ> champsList, List<String> champsNameList, List<String> champsTitleList) {
         this.champsList = champsList;
