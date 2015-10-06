@@ -7,9 +7,9 @@ Champs is a simple Android app that displays the spells and passive skills of Le
 
 Screenshots
 --------------------------------------
-<img src=http://res.cloudinary.com/champs/image/upload/v1444117574/screenshot1_jcbhch.png width=273 height=485 />
-<img src=http://res.cloudinary.com/champs/image/upload/v1444117755/screenshot2_nphmxd.png width=273 height=485 />
-<img src=http://res.cloudinary.com/champs/image/upload/v1444117690/screenshot3_seqvw2.png width=273 height=485 />
+<img src=http://res.cloudinary.com/champs/image/upload/v1444117574/screenshot1_jcbhch.png width=253 height=450 />
+<img src=http://res.cloudinary.com/champs/image/upload/v1444117755/screenshot2_nphmxd.png width=253 height=450 />
+<img src=http://res.cloudinary.com/champs/image/upload/v1444117690/screenshot3_seqvw2.png width=253 height=450 />
 
 
 3rd Party Software & APIs
