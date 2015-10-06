@@ -7,7 +7,7 @@ This is a simple Android app that displays the spells and passive skills of Leag
 
 About
 --------------------------------------
-![](screenshots/screenshot1.png =250x)
+![](screenshots/screenshot1.png)
 
 3rd Party Software & APIs
 --------------------------------------
