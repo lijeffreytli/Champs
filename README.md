@@ -3,7 +3,11 @@ Champs
 
 About
 --------------------------------------
-This repository contains the source code for the Champs Android app.
+This is a simple Android app that displays the spells and passive skills of League of Legends champions along with images of all of the different skins available for any particular champion.
+
+About
+--------------------------------------
+![](screenshots/screenshot1.png =250x)
 
 3rd Party Software & APIs
 --------------------------------------
